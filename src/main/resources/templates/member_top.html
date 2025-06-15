@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>会員TOP</title>
+</head>
+<body>
+  <h1>会員 TOP</h1>
+
+  <!-- 会員情報を表示 -->
+  <p>会員ID: <span th:text="${customer.memberCode}"></span></p>
+  <p>名前: <span th:text="${customer.lastName + ' ' + customer.firstName}"></span></p>
+  <p>メール: <span th:text="${customer.email}"></span></p>
+  <p>ポイント: <span th:text="${customer.points}"></span></p>
+  <p>ステータス: 
+    <span th:text="${customer.statusCode == 0 ? 'レギュラー' : 'ゴールド'}"></span>
+  </p>
+
+  <!-- ゴールド会員登録画面へのリンク -->
+  <a th:href="@{/gold/register}">ゴールド会員登録</a><br/>
+
+  <!-- ログアウトリンク -->
+  <a th:href="@{/logout}">ログアウト</a>
+</body>
+</html>

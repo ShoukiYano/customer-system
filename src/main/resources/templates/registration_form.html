@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>本登録フォーム</title>
+</head>
+<body>
+  <h1>会員登録ステップ3：詳細情報入力</h1>
+
+  <form th:action="@{/register/form}" th:object="${customer}" method="post">
+    <!-- email は編集不要な隠しフィールド -->
+    <input type="hidden" th:field="*{email}"/>
+
+    <label>苗字:
+      <input type="text" th:field="*{lastName}" required/>
+    </label><br/>
+
+    <label>名前:
+      <input type="text" th:field="*{firstName}" required/>
+    </label><br/>
+
+    <label>電話番号:
+      <input type="tel" th:field="*{phone}"/>
+    </label><br/>
+
+    <label>パスワード:
+      <input type="password" th:field="*{passwordHash}" required/>
+    </label><br/>
+
+    <label>性別:
+      <select th:field="*{gender}">
+        <option value="0">男</option>
+        <option value="1">女</option>
+      </select>
+    </label><br/>
+
+    <button type="submit">登録を完了する</button>
+  </form>
+</body>
+</html>

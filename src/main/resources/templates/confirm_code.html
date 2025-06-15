@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>確認コード入力</title>
+</head>
+<body>
+  <h1>会員登録ステップ2：確認コード入力</h1>
+  <!-- エラーメッセージがあれば表示 -->
+  <p th:if="${error}" th:text="${error}" style="color:red"></p>
+
+  <form th:action="@{/register/confirm}" method="post">
+    <!-- 送信済みの email を隠しフィールドで保持 -->
+    <input type="hidden" name="email" th:value="${email}"/>
+
+    <label>
+      確認コード (6桁):
+      <input type="text" name="code" maxlength="6" required/>
+    </label>
+    <button type="submit">コードを検証</button>
+  </form>
+</body>
+</html>

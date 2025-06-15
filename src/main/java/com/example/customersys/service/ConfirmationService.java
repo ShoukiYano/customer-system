@@ -2,6 +2,8 @@ package com.example.customersys.service;
 
 import java.time.LocalDateTime;
 
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.example.customersys.entity.ConfirmationToken;
@@ -17,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 public class ConfirmationService {
 	
 	private final ConfirmationTokenRepository tokenRepo;
+	private final JavaMailSender mailSender;
+	
 	
 	/**
 	 * 指定メールへ 6 桁コードを生成、保存し（将来）メール送信する
@@ -41,6 +45,19 @@ public class ConfirmationService {
 		tokenRepo.save(token);
 		
 		// TODO: メール送信コンポーネントへcodeとemailを渡して通知
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(email);
+		message.setFrom("yanopitrombone@gmail.com");
+		message.setSubject("【CustomerSystem】会員登録案内 確認コード");
+		message.setText(new StringBuilder()
+				.append(email).append("様\n\n")
+				.append("会員登録の確認コードを送ります。\n")
+				.append("以下の6桁コードを入力画面にご入力ください。\n\n")
+				.append("確認コード").append(code).append("\n\n")
+				.append("※本メールの有効期限は24時間です。")
+				.toString());
+		// メール送信
+		mailSender.send(message);
 	}
 	
 	/**
